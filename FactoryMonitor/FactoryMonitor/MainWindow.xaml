@@ -36,11 +36,28 @@
         <StackPanel Grid.Row="1"
                     Margin="10">
             <TextBlock Text ="선택된 설비 정보" FontWeight="Bold" />
-            
+
             <TextBlock Text="{Binding SelectedMachine.Name}"/>
             <TextBlock Text="{Binding SelectedMachine.Status}"/>
             <TextBlock Text="{Binding SelectedMachine.Temperature}"/>
             <TextBlock Text="{Binding SelectedMachine.OperationRate}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                <Button Content = "시작"
+                        Width="80"
+                        Margin="0,0,5,0"
+                        Command="{Binding StartCommand}"/>
+
+                <Button Content="정지"
+                        Width="80"
+                        Margin="0,0,5,0"
+                        Command="{Binding StopCommand}"/>
+
+                <Button Content="에러"
+                        Width="80"
+                        Command="{Binding ErrorCommand}"/>
+            </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Window>
