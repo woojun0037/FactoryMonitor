@@ -11,14 +11,16 @@ using System.Windows.Shapes;
 
 using FactoryMonitor.ViewModels;
 
-namespace FactoryMonitor;
-
-public partial class MainWindow : Window
+namespace FactoryMonitor
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-
-        DataContext = new MainViewModel();
+        public MainWindow()
+        {
+            InitializeComponent();
+    
+            DataContext = new MainViewModel();
+        }
+    
     }
 }

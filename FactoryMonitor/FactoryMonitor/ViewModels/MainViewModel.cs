@@ -16,38 +16,39 @@ public class MainViewModel
     private readonly Random _random = new Random();
 
     public ObservableCollection<Machine> Machines { get; set; }
+    public ObservableCollection<LogMessage> Logs { get; }
     public Machine? SelectedMachine { get; set; }
 
     public ICommand StartCommand { get; }
-    public ICommand StopCommand  { get; }
+    public ICommand StopCommand { get; }
     public ICommand ErrorCommand { get; }
 
     public MainViewModel()
     {
         Machines = new ObservableCollection<Machine>
-        {
-            new Machine
             {
-                Name = "설비 A",
-                Status = "RUN",
-                Temperature = 35.5,
-                OperationRate = 95
-            },
-            new Machine
-            {
-                Name = "설비 B",
-                Status = "STOP",
-                Temperature = 22.0,
-                OperationRate = 0
-            },
-            new Machine
-            {
-                Name = "설비 C",
-                Status = "ERROR",
-                Temperature = 80.2,
-                OperationRate = 50
-            }
-        };
+                new Machine
+                {
+                    Name = "설비 A",
+                    Status = "RUN",
+                    Temperature = 35.5,
+                    OperationRate = 95
+                },
+                new Machine
+                {
+                    Name = "설비 B",
+                    Status = "STOP",
+                    Temperature = 22.0,
+                    OperationRate = 0
+                },
+                new Machine
+                {
+                    Name = "설비 C",
+                    Status = "ERROR",
+                    Temperature = 80.2,
+                    OperationRate = 50
+                }
+            };
 
         StartCommand = new RealyCommand(_ => ChangeStatus("RUN"));
         StopCommand  = new RealyCommand(_ => ChangeStatus("STOP"));
@@ -57,14 +58,23 @@ public class MainViewModel
         _timer.Interval = TimeSpan.FromSeconds(1);
         _timer.Tick += Timer_Tick;
         _timer.Start();
+
+        Logs = new ObservableCollection<LogMessage>();
+
     }
 
     private void ChangeStatus(string status)
     {
         if (SelectedMachine == null)
+        {
             return;
+        }
+
+        string oldStatus = SelectedMachine.Status;
 
         SelectedMachine.Status = status;
+
+        AddLog($"{SelectedMachine.Name} : {oldStatus} -> {status}");
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
@@ -76,27 +86,35 @@ public class MainViewModel
                 machine.Temperature += _random.NextDouble() * 2 - 0.5;
                 machine.OperationRate = _random.Next(80, 101);
             }
-            else if(machine.Status == "STOP")
+            else if (machine.Status == "STOP")
             {
                 machine.Temperature -= _random.NextDouble();
                 machine.OperationRate = 0;
             }
-            else if(machine.Status == "ERROR")
+            else if (machine.Status == "ERROR")
             {
                 machine.Temperature += _random.NextDouble() * 3;
                 machine.OperationRate = _random.Next(0, 50);
-            }   
+            }
 
-            if(machine.Temperature > 100)
+            if (machine.Temperature > 100)
             {
                 machine.Temperature = 20;
             }
 
-            if(machine.Temperature > 100)
+            if (machine.Temperature > 100)
             {
                 machine.Temperature = 100;
             }
         }
     }
-}
 
+    private void AddLog(string message)
+    {
+        Logs.Add(new LogMessage
+        {
+            Time = DateTime.Now,
+            Message = message
+        });
+    }
+}

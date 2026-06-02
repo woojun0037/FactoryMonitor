@@ -6,44 +6,110 @@
         xmlns:local="clr-namespace:FactoryMonitor"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
+            <RowDefinition Height="170" />
         </Grid.RowDefinitions>
-            
-        
-       <ListView Grid.Row="0"
-                 ItemsSource= "{Binding Machines}"
-                 SelectedItem="{Binding SelectedMachine}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="설비명"
-                                    DisplayMemberBinding="{Binding Name}" />
 
-                    <GridViewColumn Header="상태"                
-                                    DisplayMemberBinding="{Binding Status}" />
+        <!-- 설비 목록 영역 -->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                    <GridViewColumn Header="온도"
-                                    DisplayMemberBinding="{Binding Temperature}" />
+            <Border Grid.Row="0"
+                    BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="120" FontWeight="Bold" Text="설비명" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Width="120" FontWeight ="Bold" Text="상태"  
+                    HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Width="120" FontWeight ="Bold" Text="온도"  
+                    HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Width="120" FontWeight ="Bold" Text="가동률"
+                    HorizontalAlignment="Center"/>
+                    
+                </StackPanel>
+            </Border>
 
-                    <GridViewColumn Header="가동률"
-                                    DisplayMemberBinding="{Binding OperationRate}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding Machines}"
+                     SelectedItem="{Binding SelectedMachine}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="120" Text="{Binding Name}"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"  Text="{Binding Status}"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"  Text="{Binding Temperature}"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"  Text="{Binding OperationRate}"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
 
+        <!-- 선택된 설비 정보 + 버튼 영역 -->
         <StackPanel Grid.Row="1"
                     Margin="10">
-            <TextBlock Text ="선택된 설비 정보" FontWeight="Bold" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Text="선택된 설비 정보"
+                           FontWeight="Bold"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="설비명 :" />
+                <TextBlock Text="{Binding SelectedMachine.Name}" />
+            </StackPanel>
 
-            <TextBlock Text="{Binding SelectedMachine.Name}"/>
-            <TextBlock Text="{Binding SelectedMachine.Status}"/>
-            <TextBlock Text="{Binding SelectedMachine.Temperature}"/>
-            <TextBlock Text="{Binding SelectedMachine.OperationRate}"/>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="상태 :" />
+                <TextBlock Text="{Binding SelectedMachine.Status}" />
+            </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                <Button Content = "시작"
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                        
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="온도 :" />
+                <TextBlock Text="{Binding SelectedMachine.Temperature}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="가동률 :" />
+                <TextBlock Text="{Binding SelectedMachine.OperationRate}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,0">
+                <Button Content="시작"
                         Width="80"
                         Margin="0,0,5,0"
                         Command="{Binding StartCommand}"/>
@@ -57,7 +123,40 @@
                         Width="80"
                         Command="{Binding ErrorCommand}"/>
             </StackPanel>
-            
         </StackPanel>
+
+        <!-- 로그 영역 -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="80"
+                               FontWeight="Bold"
+                               Text="시간"/>
+
+                    <TextBlock FontWeight="Bold"
+                               Text="메시지"/>
+                </StackPanel>
+            </Border>
+
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding Logs}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="80"
+                                       Text="{Binding TimeText}" />
+
+                            <TextBlock Text="{Binding Message}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Window>
