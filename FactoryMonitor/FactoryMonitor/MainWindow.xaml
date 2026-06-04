@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FactoryMonitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="800">
+        Title="MainWindow" Height="600" Width="950">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="180" />
+            <RowDefinition Height="250" />
             <RowDefinition Height="170" />
         </Grid.RowDefinitions>
 
@@ -50,9 +50,21 @@
                                FontWeight="Bold"
                                Text="가동시간"/>
 
+                    <TextBlock Width="120"
+                               FontWeight="Bold"
+                               Text="생산량"/>
+                    
+                    <TextBlock Width="120"
+                               FontWeight="Bold"
+                               Text="목표량"/>
+                    
+                    <TextBlock Width="120"
+                               FontWeight="Bold"
+                               Text="달성률"/>
                 </StackPanel>
             </Border>
-
+            
+            <!-- 데이터 영역 -->
             <ListBox Grid.Row="1"
                      ItemsSource="{Binding Machines}"
                      SelectedItem="{Binding SelectedMachine}">
@@ -80,13 +92,25 @@
                             <TextBlock Width="120"  
                                        Text="{Binding RunningTimeText}"
                                        HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"
+                                       Text="{Binding ProductionCount}"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"
+                                       Text="{Binding TargetCount}"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"
+                                       Text="{Binding AchievementRateText}"
+                                       HorizontalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
 
-        <!-- 선택된 설비 정보 + 버튼 영역 -->
+        <!-- 선택된 설비 정보-->
         <StackPanel Grid.Row="1"
                     Margin="10">
             <StackPanel Orientation="Horizontal"
@@ -144,6 +168,34 @@
             </StackPanel>
             
             <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="생산량 :" />
+                <TextBlock Text="{Binding SelectedMachine.ProductionCount}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="목표 : "/>
+                <TextBlock Text="{Binding SelectedMachine.TargetCount}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+                
+                <TextBlock Width="80"
+                        FontWeight="Bold"
+                        Text="달성률 : "/>
+                <TextBlock Text="{Binding SelectedMachine.AchievementRateText}" />
+            </StackPanel>
+            
+            <!--버튼 영역-->
+            <StackPanel Orientation="Horizontal"
                         Margin="0,0,0,0">
                 <Button Content="시작"
                         Width="80"
@@ -171,6 +223,7 @@
             <Border Grid.Row="0"
                     BorderThickness="0,0,0,1">
                 <StackPanel Orientation="Horizontal">
+                    
                     <TextBlock Width="80"
                                FontWeight="Bold"
                                Text="시간"/>

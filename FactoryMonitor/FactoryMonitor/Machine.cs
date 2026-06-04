@@ -15,6 +15,9 @@ public class Machine : INotifyPropertyChanged
     private double _OperationRate;
     private double _RunningSeconds;
 
+    private int _ProductionCount;
+    private int _TargetCount = 1000;
+
     private bool _isAlarmActive;
 
     public string Name
@@ -76,6 +79,50 @@ public class Machine : INotifyPropertyChanged
         {
             TimeSpan time = TimeSpan.FromSeconds(RunningSeconds);
             return time.ToString(@"hh\:mm\:ss");
+        }
+    }
+
+    public int ProductionCount
+    {
+        get => _ProductionCount;
+        set 
+        {
+            _ProductionCount = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(AchievementRate));
+            OnPropertyChanged(nameof(AchievementRateText));
+        }
+    }
+
+    public int TargetCount
+    {
+        get => _TargetCount;
+        set
+        {
+            _TargetCount = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(AchievementRate));
+            OnPropertyChanged(nameof(AchievementRateText));
+        }
+    }
+
+    public double AchievementRate
+    {
+        get
+        {
+            if (TargetCount == 0)
+            {
+                return 0;
+            }
+            return (double)ProductionCount / TargetCount * 100;
+        }
+    }
+
+    public string AchievementRateText
+    {
+        get
+        {
+            return $"{AchievementRate:F1}%";
         }
     }
 

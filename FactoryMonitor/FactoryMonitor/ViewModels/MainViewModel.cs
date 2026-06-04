@@ -32,21 +32,24 @@ public class MainViewModel
                 Name = "설비 A",
                 Status = "RUN",
                 Temperature = 35.5,
-                OperationRate = 95
+                OperationRate = 95,
+                TargetCount = 1000
             },
             new Machine
             {
                 Name = "설비 B",
                 Status = "STOP",
                 Temperature = 22.0,
-                OperationRate = 0
+                OperationRate = 0,
+                TargetCount = 800
             },
             new Machine
             {
                 Name = "설비 C",
                 Status = "ERROR",
                 Temperature = 80.2,
-                OperationRate = 50
+                OperationRate = 50,
+                TargetCount = 500
             }
         };
 
@@ -87,7 +90,10 @@ public class MainViewModel
 
                 // RUN 상태에서는 서서히 과열
                 machine.Temperature += _random.NextDouble() * 1.5 + 0.2;
+
                 machine.OperationRate = _random.Next(80, 101);
+
+                machine.ProductionCount += _random.Next(1, 5);
             }
             else if (machine.Status == "STOP")
             {
