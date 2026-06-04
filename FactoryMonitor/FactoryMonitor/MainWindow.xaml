@@ -24,16 +24,26 @@
             <Border Grid.Row="0"
                     BorderThickness="0,0,0,1">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Width="120" FontWeight="Bold" Text="설비명" HorizontalAlignment="Center"/>
                     
-                    <TextBlock Width="120" FontWeight ="Bold" Text="상태"  
-                    HorizontalAlignment="Center"/>
+                    <TextBlock Width="120" 
+                               FontWeight="Bold" 
+                               Text="설비명" 
+                               HorizontalAlignment="Center"/>
                     
-                    <TextBlock Width="120" FontWeight ="Bold" Text="온도"  
-                    HorizontalAlignment="Center"/>
+                    <TextBlock Width="120" 
+                               FontWeight ="Bold" 
+                               Text="상태"  
+                               HorizontalAlignment="Center"/>
                     
-                    <TextBlock Width="120" FontWeight ="Bold" Text="가동률"
-                    HorizontalAlignment="Center"/>
+                    <TextBlock Width="120" 
+                               FontWeight ="Bold" 
+                               Text="온도"  
+                               HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Width="120" 
+                               FontWeight ="Bold" 
+                               Text="가동률"
+                               HorizontalAlignment="Center"/>
                     
                 </StackPanel>
             </Border>
@@ -44,16 +54,21 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Width="120" Text="{Binding Name}"
+                            <TextBlock Width="120" 
+                                       Text="{Binding Name}"
                                        HorizontalAlignment="Center"/>
                             
-                            <TextBlock Width="120"  Text="{Binding Status}"
+                            <TextBlock Width="120"  
+                                       Text="{Binding Status}"
+                                       Background="{Binding StatusColor}"
                                        HorizontalAlignment="Center"/>
                             
-                            <TextBlock Width="120"  Text="{Binding Temperature}"
+                            <TextBlock Width="120"  
+                                       Text="{Binding Temperature, StringFormat={}{0:F4}}"
                                        HorizontalAlignment="Center"/>
                             
-                            <TextBlock Width="120"  Text="{Binding OperationRate}"
+                            <TextBlock Width="120"  
+                                       Text="{Binding OperationRate}"
                                        HorizontalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
@@ -86,7 +101,8 @@
                 <TextBlock Width="80"
                            FontWeight="Bold"
                            Text="상태 :" />
-                <TextBlock Text="{Binding SelectedMachine.Status}" />
+                <TextBlock Text="{Binding SelectedMachine.Status}" 
+                           Background="{Binding SelectedMachine.StatusColor}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
@@ -95,7 +111,7 @@
                 <TextBlock Width="80"
                            FontWeight="Bold"
                            Text="온도 :" />
-                <TextBlock Text="{Binding SelectedMachine.Temperature}" />
+                <TextBlock Text="{Binding SelectedMachine.Temperature, StringFormat={}{0:F4}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"

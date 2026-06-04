@@ -4,60 +4,74 @@ using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace FactoryMonitor.Models
+namespace FactoryMonitor.Models;
+
+public class Machine : INotifyPropertyChanged
 {
-    public class Machine : INotifyPropertyChanged
+    private string _Name = string.Empty;
+    private string _Status = string.Empty;
+    private double _Temperature;
+    private double _OperationRate;
+
+    public string Name
     {
-        private string _Name = string.Empty;
-        private string _Status = string.Empty;
-        private double _Temperature;
-        private double _OperationRate;
-
-        public string Name
+        get => _Name;
+        set
         {
-            get => _Name;
-            set
-            {
-                _Name = value;
-                OnPropertyChanged();
-            }
+            _Name = value;
+            OnPropertyChanged();
         }
+    }
 
-        public string Status
+    public string Status
+    {
+        get => _Status;
+        set
         {
-            get => _Status;
-            set
-            {
-                _Status = value;
-                OnPropertyChanged();
-            }
+            _Status = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(StatusColor));
         }
+    }
 
-        public double Temperature
+    public double Temperature
+    {
+        get => _Temperature;
+        set
         {
-            get => _Temperature;
-            set
-            {
-                _Temperature = value;
-                OnPropertyChanged();
-            }
+            _Temperature = value;
+            OnPropertyChanged();
         }
+    }
 
-        public double OperationRate
+    public double OperationRate
+    {
+        get => _OperationRate;
+        set
         {
-            get => _OperationRate;
-            set
-            {
-                _OperationRate = value;
-                OnPropertyChanged();
-            }
+            _OperationRate = value;
+            OnPropertyChanged();
         }
+    }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public string StatusColor
+    {
+        get
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return Status switch
+            {
+                "RUN" => "LightGreen",
+                "STOP" => "LightGray",
+                "ERROR" => "LightCoral",
+                _ => "White"
+            };
         }
     }
 }

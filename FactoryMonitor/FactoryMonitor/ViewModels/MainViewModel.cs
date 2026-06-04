@@ -26,41 +26,41 @@ public class MainViewModel
     public MainViewModel()
     {
         Machines = new ObservableCollection<Machine>
+        {
+            new Machine
             {
-                new Machine
-                {
-                    Name = "설비 A",
-                    Status = "RUN",
-                    Temperature = 35.5,
-                    OperationRate = 95
-                },
-                new Machine
-                {
-                    Name = "설비 B",
-                    Status = "STOP",
-                    Temperature = 22.0,
-                    OperationRate = 0
-                },
-                new Machine
-                {
-                    Name = "설비 C",
-                    Status = "ERROR",
-                    Temperature = 80.2,
-                    OperationRate = 50
-                }
-            };
+                Name = "설비 A",
+                Status = "RUN",
+                Temperature = 35.5,
+                OperationRate = 95
+            },
+            new Machine
+            {
+                Name = "설비 B",
+                Status = "STOP",
+                Temperature = 22.0,
+                OperationRate = 0
+            },
+            new Machine
+            {
+                Name = "설비 C",
+                Status = "ERROR",
+                Temperature = 80.2,
+                OperationRate = 50
+            }
+        };
 
-        StartCommand = new RealyCommand(_ => ChangeStatus("RUN"));
-        StopCommand  = new RealyCommand(_ => ChangeStatus("STOP"));
-        ErrorCommand = new RealyCommand(_ => ChangeStatus("ERROR"));
+        Logs = new ObservableCollection<LogMessage>();
+
+        StartCommand = new RelyCommand(_ => ChangeStatus("RUN"));
+        StopCommand  = new RelyCommand(_ => ChangeStatus("STOP"));
+        ErrorCommand = new RelyCommand(_ => ChangeStatus("ERROR"));
+
 
         _timer = new DispatcherTimer();
         _timer.Interval = TimeSpan.FromSeconds(1);
         _timer.Tick += Timer_Tick;
         _timer.Start();
-
-        Logs = new ObservableCollection<LogMessage>();
-
     }
 
     private void ChangeStatus(string status)
@@ -97,7 +97,7 @@ public class MainViewModel
                 machine.OperationRate = _random.Next(0, 50);
             }
 
-            if (machine.Temperature > 100)
+            if (machine.Temperature < 20)
             {
                 machine.Temperature = 20;
             }
