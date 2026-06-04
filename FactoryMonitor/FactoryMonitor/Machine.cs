@@ -10,8 +10,12 @@ public class Machine : INotifyPropertyChanged
 {
     private string _Name = string.Empty;
     private string _Status = string.Empty;
+
     private double _Temperature;
     private double _OperationRate;
+    private double _RunningSeconds;
+
+    private bool _isAlarmActive;
 
     public string Name
     {
@@ -41,6 +45,7 @@ public class Machine : INotifyPropertyChanged
         {
             _Temperature = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(AlarmColor));
         }
     }
 
@@ -51,6 +56,50 @@ public class Machine : INotifyPropertyChanged
         {
             _OperationRate = value;
             OnPropertyChanged();
+        }
+    }
+
+    public double RunningSeconds
+    {
+        get => _RunningSeconds;
+        set
+        {
+            _RunningSeconds = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(RunningTimeText));
+        }
+    }   
+
+    public string RunningTimeText
+    {
+        get
+        {
+            TimeSpan time = TimeSpan.FromSeconds(RunningSeconds);
+            return time.ToString(@"hh\:mm\:ss");
+        }
+    }
+
+    public bool IsAlarm
+    {
+        get => Temperature >= 80;
+    }
+
+    public bool IsAlarmActive
+    {
+        get => _isAlarmActive;
+        set
+        {
+            _isAlarmActive = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(AlarmColor));
+        }
+    }
+
+    public string AlarmColor
+    {
+        get
+        {
+            return IsAlarm ? "Red" : "Transparent";
         }
     }
 

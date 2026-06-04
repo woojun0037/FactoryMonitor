@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FactoryMonitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="180" />
             <RowDefinition Height="170" />
         </Grid.RowDefinitions>
 
@@ -37,7 +37,8 @@
                     
                     <TextBlock Width="120" 
                                FontWeight ="Bold" 
-                               Text="온도"  
+                               Text="온도"
+                               Background="{Binding AlarmColor}"
                                HorizontalAlignment="Center"/>
                     
                     <TextBlock Width="120" 
@@ -45,6 +46,10 @@
                                Text="가동률"
                                HorizontalAlignment="Center"/>
                     
+                    <TextBlock Width="120"
+                               FontWeight="Bold"
+                               Text="가동시간"/>
+
                 </StackPanel>
             </Border>
 
@@ -65,10 +70,15 @@
                             
                             <TextBlock Width="120"  
                                        Text="{Binding Temperature, StringFormat={}{0:F4}}"
+                                       Background="{Binding AlarmColor}"
                                        HorizontalAlignment="Center"/>
                             
                             <TextBlock Width="120"  
                                        Text="{Binding OperationRate}"
+                                       HorizontalAlignment="Center"/>
+                            
+                            <TextBlock Width="120"  
+                                       Text="{Binding RunningTimeText}"
                                        HorizontalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
@@ -111,7 +121,8 @@
                 <TextBlock Width="80"
                            FontWeight="Bold"
                            Text="온도 :" />
-                <TextBlock Text="{Binding SelectedMachine.Temperature, StringFormat={}{0:F4}}" />
+                <TextBlock Text="{Binding SelectedMachine.Temperature, StringFormat={}{0:F4}}" 
+                           Background="{Binding SelectedMachine.AlarmColor}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
@@ -123,6 +134,15 @@
                 <TextBlock Text="{Binding SelectedMachine.OperationRate}" />
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,5">
+
+                <TextBlock Width="80"
+                           FontWeight="Bold"
+                           Text="가동시간 :" />
+                <TextBlock Text="{Binding SelectedMachine.RunningTimeText}" />
+            </StackPanel>
+            
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,0,0">
                 <Button Content="시작"

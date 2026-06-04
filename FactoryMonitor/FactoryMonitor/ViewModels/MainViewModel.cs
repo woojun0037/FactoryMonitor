@@ -83,16 +83,21 @@ public class MainViewModel
         {
             if (machine.Status == "RUN")
             {
-                machine.Temperature += _random.NextDouble() * 2 - 0.5;
+                machine.RunningSeconds += 1;
+
+                // RUN 상태에서는 서서히 과열
+                machine.Temperature += _random.NextDouble() * 1.5 + 0.2;
                 machine.OperationRate = _random.Next(80, 101);
             }
             else if (machine.Status == "STOP")
             {
-                machine.Temperature -= _random.NextDouble();
+                // STOP 상태에서는 냉각
+                machine.Temperature -= _random.NextDouble() * 3;
                 machine.OperationRate = 0;
             }
             else if (machine.Status == "ERROR")
             {
+                // ERROR 상태에서는 빠르게 과열
                 machine.Temperature += _random.NextDouble() * 3;
                 machine.OperationRate = _random.Next(0, 50);
             }
@@ -106,6 +111,7 @@ public class MainViewModel
             {
                 machine.Temperature = 100;
             }
+            CheckAlarms(machine);
         }
     }
 
@@ -116,5 +122,19 @@ public class MainViewModel
             Time = DateTime.Now,
             Message = message
         });
+    }
+
+    private void CheckAlarms(Machine machine)
+    {
+        if(machine.Temperature >= 80 && machine.IsAlarmActive == false)
+        {
+            machine.IsAlarmActive = true;
+            AddLog($"[ALARM] {machine.Name} 온도 초과 : {machine.Temperature:F4}");
+        }
+        else if(machine.Temperature < 70 && machine.IsAlarmActive == true)
+        {
+            machine.IsAlarmActive = false;
+            AddLog($"[ALARM] {machine.Name} 온도 정상 복귀 : {machine.Temperature:F4}");
+        }
     }
 }
