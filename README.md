@@ -157,32 +157,6 @@ MainViewModel
 MainWindow.xaml
 ```
 
----
-
-## 실행 방법
-
-### 1. Clone Repository
-
-```bash
-git clone https://github.com/사용자명/FactoryMonitor.git
-```
-
-### 2. Open Solution
-
-```text
-Visual Studio 실행
-↓
-FactoryMonitor.sln 열기
-```
-
-### 3. Run
-
-```text
-F5
-```
-
----
-
 ## 구현 내용
 
 - MVVM 패턴 기반 설계
