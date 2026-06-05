@@ -73,3 +73,143 @@ Factory Monitor는 생산 현장의 설비 상태를 모니터링하는 HMI(Huma
 [12:30:15] Machine A → RUN
 [12:32:40] Machine B → ERROR
 [12:35:12] Machine C → STOP
+```
+
+## 과열 시뮬레이션
+
+RUN 상태가 지속될 경우 온도가 점진적으로 상승합니다.
+
+설비가 장시간 동작하면 과열 상태에 진입할 수 있으며, 실제 생산 설비의 열 누적 현상을 단순화하여 구현하였습니다.
+
+---
+
+## 실행 화면
+
+### 설비 목록
+
+![MachineList](./assets/MachineList.gif)
+
+### 설비 상세 정보
+
+![MachineDetail](./assets/MachineDetail.gif)
+
+### 로그 모니터링
+
+![LogViewer](./assets/LogViewer.gif)
+
+---
+
+## 프로젝트 구조
+
+```text
+FactoryMonitor
+│
+├── Models
+│   └── Machine.cs
+│
+├── ViewModels
+│   └── MainViewModel.cs
+│
+├── Commands
+│   └── RelayCommand.cs
+│
+├── Views
+│   └── MainWindow.xaml
+│
+└── App.xaml
+```
+
+---
+
+## MVVM 구조
+
+### Model
+
+설비 데이터 관리
+
+```text
+Machine
+ ├── Name
+ ├── Status
+ ├── Temperature
+ └── OperationRate
+```
+
+### ViewModel
+
+UI와 데이터 연결
+
+```text
+MainViewModel
+ ├── Machines
+ ├── SelectedMachine
+ ├── Logs
+ ├── StartCommand
+ ├── StopCommand
+ └── ErrorCommand
+```
+
+### View
+
+화면 구성 및 데이터 바인딩
+
+```text
+MainWindow.xaml
+```
+
+---
+
+## 실행 방법
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/사용자명/FactoryMonitor.git
+```
+
+### 2. Open Solution
+
+```text
+Visual Studio 실행
+↓
+FactoryMonitor.sln 열기
+```
+
+### 3. Run
+
+```text
+F5
+```
+
+---
+
+## 구현 내용
+
+- MVVM 패턴 기반 설계
+- 설비 상태 실시간 모니터링
+- ObservableCollection을 활용한 UI 자동 갱신
+- DispatcherTimer 기반 데이터 시뮬레이션
+- ICommand를 활용한 상태 제어
+- 설비 상태별 색상 표시
+- 로그 시스템 구현
+- 설비 상세 정보 조회 기능
+
+---
+
+## 향후 개선 계획
+
+- SQLite 연동
+- 설비 이력 저장 기능
+- 설비 알람 기능
+- 실시간 차트 표시
+- PLC 통신 연동 (Modbus/TCP)
+- 설비 데이터 영구 저장
+
+---
+
+## Skills
+
+- C#
+- WPF
+- MVVM
+- XAML
