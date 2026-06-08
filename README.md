@@ -4,6 +4,7 @@ WPF MVVM 패턴을 활용하여 제작한 FA(Factory Automation) 설비 모니�
 
 설비의 상태(RUN / STOP / ERROR)를 실시간으로 모니터링하고, 온도 및 가동률 데이터를 시뮬레이션하여 생산 설비 관리 시스템의 기본 구조를 구현하였습니다.
 
+![FactoryMonitor](./assets/FactoryMonitor.gif)
 ---
 
 ## 프로젝트 개요
