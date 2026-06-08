@@ -88,15 +88,15 @@ RUN 상태가 지속될 경우 온도가 점진적으로 상승합니다.
 
 ### 설비 목록
 
-![MachineList](./assets/MachineList.gif)
+![설비목록](./assets/설비목록.png)
 
 ### 설비 상세 정보
 
-![MachineDetail](./assets/MachineDetail.gif)
+![설비정보](./assets/설비정보.png)
 
 ### 로그 모니터링
 
-![LogViewer](./assets/LogViewer.gif)
+![설비로그](./assets/설비로그.png)
 
 ---
 
