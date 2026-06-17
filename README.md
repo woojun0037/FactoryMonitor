@@ -32,7 +32,7 @@ Factory Monitor는 생산 현장의 설비 상태를 모니터링하는 HMI(Huma
 - INotifyPropertyChanged
 - ICommand
 - DispatcherTimer
-
+- StreamWriter (CSV Export)
 ---
 
 ## 주요 기능
@@ -76,13 +76,18 @@ Factory Monitor는 생산 현장의 설비 상태를 모니터링하는 HMI(Huma
 [12:35:12] Machine C → STOP
 ```
 
+### CSV Export
+
+- 설비 정보를 CSV 파일로 저장
+- 설비 데이터 백업 가능
+- 현재 상태 데이터를 외부 파일로 추출
+---
+
 ## 과열 시뮬레이션
 
 RUN 상태가 지속될 경우 온도가 점진적으로 상승합니다.
 
 설비가 장시간 동작하면 과열 상태에 진입할 수 있으며, 실제 생산 설비의 열 누적 현상을 단순화하여 구현하였습니다.
-
----
 
 ## 실행 화면
 
