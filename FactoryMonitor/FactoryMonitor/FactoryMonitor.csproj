@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Veiws\**" />
+    <EmbeddedResource Remove="Veiws\**" />
+    <None Remove="Veiws\**" />
+    <Page Remove="Veiws\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Veiws\Controls\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="FactoryMonitor.Views.Controls.MachineListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <GroupBox Header="설비 목록">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 헤더 영역 -->
+            <Border Grid.Row="0"
+                    BorderThickness="0,0,0,1"
+                    BorderBrush="Gray">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="120" FontWeight="Bold" Text="설비명" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="상태" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="온도" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="가동률" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="가동시간" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="생산량" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="목표량" TextAlignment="Center"/>
+                    <TextBlock Width="120" FontWeight="Bold" Text="달성률" TextAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 데이터 영역 -->
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding Machines}"
+                     SelectedItem="{Binding SelectedMachine}">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Width="120"
+                                       Text="{Binding Name}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding Status}"
+                                       Background="{Binding StatusColor}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding Temperature, StringFormat={}{0:F1}℃}"
+                                       Background="{Binding AlarmColor}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding OperationRate}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding RunningTimeText}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding ProductionCount}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding TargetCount}"
+                                       TextAlignment="Center"/>
+
+                            <TextBlock Width="120"
+                                       Text="{Binding AchievementRateText}"
+                                       TextAlignment="Center"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </GroupBox>
+</UserControl>

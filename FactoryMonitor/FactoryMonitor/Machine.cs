@@ -71,7 +71,7 @@ public class Machine : INotifyPropertyChanged
             OnPropertyChanged();
             OnPropertyChanged(nameof(RunningTimeText));
         }
-    }   
+    }
 
     public string RunningTimeText
     {
@@ -85,7 +85,7 @@ public class Machine : INotifyPropertyChanged
     public int ProductionCount
     {
         get => _ProductionCount;
-        set 
+        set
         {
             _ProductionCount = value;
             OnPropertyChanged();

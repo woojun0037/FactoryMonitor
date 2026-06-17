@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,18 +11,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using FactoryMonitor.ViewModels;
-
-namespace FactoryMonitor
+namespace FactoryMonitor.Views.Controls
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// LogView.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class LogView : UserControl
     {
-        public MainWindow()
+        public LogView()
         {
             InitializeComponent();
-    
-            DataContext = new MainViewModel();
         }
-    
     }
 }
