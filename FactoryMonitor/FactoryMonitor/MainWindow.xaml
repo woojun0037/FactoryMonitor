@@ -38,7 +38,6 @@
                     <TextBlock Width="120" 
                                FontWeight ="Bold" 
                                Text="온도"
-                               Background="{Binding AlarmColor}"
                                HorizontalAlignment="Center"/>
                     
                     <TextBlock Width="120" 
@@ -210,6 +209,11 @@
                 <Button Content="에러"
                         Width="80"
                         Command="{Binding ErrorCommand}"/>
+                
+                <Button Content="CSV 저장"
+                        Width="80"
+                        Margin="5,0,0,0"
+                        Command="{Binding ExportCsvCommand}" />
             </StackPanel>
         </StackPanel>
 

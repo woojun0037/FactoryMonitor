@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Threading;
 
 using FactoryMonitor.Models;
 using FactoryMonitor.Commands;
+using System.Data;
 
 namespace FactoryMonitor.ViewModels;
 
@@ -22,6 +24,7 @@ public class MainViewModel
     public ICommand StartCommand { get; }
     public ICommand StopCommand { get; }
     public ICommand ErrorCommand { get; }
+    public ICommand ExportCsvCommand { get; }
 
     public MainViewModel()
     {
@@ -58,7 +61,7 @@ public class MainViewModel
         StartCommand = new RelyCommand(_ => ChangeStatus("RUN"));
         StopCommand  = new RelyCommand(_ => ChangeStatus("STOP"));
         ErrorCommand = new RelyCommand(_ => ChangeStatus("ERROR"));
-
+        ExportCsvCommand = new RelyCommand(_ => ExportCsv());
 
         _timer = new DispatcherTimer();
         _timer.Interval = TimeSpan.FromSeconds(1);
@@ -142,5 +145,34 @@ public class MainViewModel
             machine.IsAlarmActive = false;
             AddLog($"[ALARM] {machine.Name} 온도 정상 복귀 : {machine.Temperature:F4}");
         }
+    }
+
+    private void ExportCsv()
+    {
+        string filePath = "machine.csv";
+
+        using StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8);
+
+        writer.WriteLine("설비명,상태,온도,가동률,가동시간,생산수량,목표수량");
+
+        foreach(var machine in Machines)
+        {
+            writer.WriteLine(
+                $"{machine.Name}," +
+                $"{machine.Status}," +
+                $"{machine.Temperature:F2}," +
+                $"{machine.OperationRate:F2}," +
+                $"{machine.RunningTimeText}," +
+                $"{machine.ProductionCount}," +
+                $"{machine.TargetCount}" + 
+                $"{machine.AchievementRateText}"
+            );
+        }
+
+        Logs.Insert(0, new LogMessage
+        {
+            Message = "CSV 파일이 저장되었습니다.",
+            Time = DateTime.Now
+        });
     }
 }
